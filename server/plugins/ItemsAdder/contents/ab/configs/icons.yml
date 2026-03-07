@@ -1,0 +1,250 @@
+info:
+  namespace: ab
+items:
+  invite:
+    enabled: true
+    display_name: 초대권
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/invite
+  bag:
+    enabled: true
+    display_name: 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bag
+  bagblue:
+    enabled: true
+    display_name: 파란색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bagblue
+  greenbag:
+    enabled: true
+    display_name: 초록색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/baggreen
+  orangebag:
+    enabled: true
+    display_name: 주황색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bagorange
+  purplebag:
+    enabled: true
+    display_name: 보라색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bagpurple
+  redbag:
+    enabled: true
+    display_name: 빨간색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bagred
+  skybluebag:
+    enabled: true
+    display_name: 하늘색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bagskyblue
+  yellowbag:
+    enabled: true
+    display_name: 노란색 돈가방
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/bagyellow
+  ringblack:
+    enabled: true
+    display_name: 검은색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringblack
+  ringblue:
+    enabled: true
+    display_name: 파란색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringblue
+  ringlightblue:
+    enabled: true
+    display_name: 하늘색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringlightblue
+  ringlime:
+    enabled: true
+    display_name: 연두색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringlime
+  ringorange:
+    enabled: true
+    display_name: 주황색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringorange
+  ringpink:
+    enabled: true
+    display_name: 분홍색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringpink
+  ringpurple:
+    enabled: true
+    display_name: 보라색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringpurple
+  ringred:
+    enabled: true
+    display_name: 빨간색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringred
+  ringwhite:
+    enabled: true
+    display_name: 하얀색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringwhite
+  ringyellow:
+    enabled: true
+    display_name: 노란색 반지
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/ringyellow
+  postbox:
+    display_name: "우체통"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: postbox
+    behaviours:
+      furniture:
+        light_level: 5
+        solid: true
+        placeable_on:
+          floor: true
+          ceiling: false
+          walls: false
+        hitbox:
+          height: 2
+        sound:
+          place:
+            name: block.metal.fall
+          break:
+            name: block.metal.break
+  rednote:
+    display_name: "빨간색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: rednote
+  yellownote:
+    display_name: "노란색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: yellownote
+  bluenote:
+    display_name: "파란색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: bluenote
+  greennote:
+    display_name: "초록색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: greennote
+  orangenote:
+    display_name: "주황색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: orangenote
+  pinknote:
+    display_name: "분홍색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: pinknote
+  purplenote:
+    display_name: "보라색 쪽지"
+    resource:
+      material: PAPER
+      generate: false
+      model_path: purplenote
+  hogam:
+    enabled: true
+    display_name: 호감도
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/hogam
+  up:
+    enabled: true
+    display_name: 업
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/up.png
+  down:
+    enabled: true
+    display_name: 다운
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/down.png
+  gangjae:
+    enabled: true
+    display_name: 강제결혼권
+    resource:
+      material: PAPER
+      generate: true
+      textures:
+        - item/gangjae.png

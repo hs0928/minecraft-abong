@@ -1,0 +1,1911 @@
+every 1 seconds:
+    if {움직이기금지} > 0:
+        remove 1 from {움직이기금지}
+    else if {움직이기금지} = 0:
+        delete {움직이기금지}
+        send "%nl%&e움직이기 금지가 해제되었습니다%nl%" to all players
+        play sound "entity.player.levelup" with volume 1 with pitch 2 to all players
+    loop all players:
+        {c.e::%loop-player's uuid%} > 0:
+            remove 1 from {c.e::%loop-player's uuid%}
+        else:
+            set {c.e::%loop-player's uuid%} to 0
+    set {_realtime} to now formatted human-readable as "HH:mm.ss"
+    #send "%{_realtime}%" to all players
+    if {_realtime} is "18:00.00":
+        loop size of {접속목록::*} times:
+            add 1 to {_랜덤}
+            console command "닉네임관리 설정 %{_랜덤}% r%{_랜덤}%"
+        delete {접속목록1::*}
+        loop {접속목록::*}:
+            add loop-value to {접속목록1::*}
+        delete {countrandom}
+        set {_cimsi} to size of {접속목록1::*}
+        loop {_cimsi} times:
+            set {_임시} to random element of {접속목록1::*}
+            remove {_임시} from {접속목록1::*}
+            add 1 to {countrandom}
+            set {번호::%uuid of {_임시}%} to {countrandom}
+            wait 2 tick
+            console command "닉네임관리 설정 %{_임시}% %{번호::%uuid of {_임시}%}%"
+            console command "api관리 연동 %{_임시}% 숲 %{숲아이디::%uuid of {_임시}%}%"
+        send "%nl%&e닉네임이 랜덤으로 변경되었습니다%nl%" to all players
+        play sound "entity.player.levelup" to all players
+        loop {s.l::*}:
+            set {_r} to random integer between 1 and 10
+            set {s.l::%loop-index%} to {_r}
+        send "%nl%&a표지판 제한 횟수가 랜덤으로 설정되었습니다%nl%" to all players
+        play sound "entity.experience_orb.pickup" with volume 0.5 with pitch 1 to all players
+        loop {우편발송대기::*}:
+            loop {우편보낸횟수::%uuid of loop-value%} times:
+                add 1 to {보낸횟수카운트::%uuid of loop-value-1%}
+                add {우편보낼아이템%{보낸횟수카운트::%uuid of loop-value-1%}%::%uuid of loop-value-1%} to {post.%{우편받을사람%{보낸횟수카운트::%uuid of loop-value-1%}%::%uuid of loop-value-1%}%::*}
+                delete {우편보낼아이템%{보낸횟수카운트::%uuid of loop-value-1%}%::%uuid of loop-value-1%}
+                delete {우편받을사람%{보낸횟수카운트::%uuid of loop-value-1%}%::%uuid of loop-value-1%}
+        send "%nl%&e우편이 도착하였습니다%nl%" to {우편받는사람목록::*}
+        play sound "minecraft:entity.experience_orb.pickup" with volume 1 to {우편받는사람목록::*}
+        loop {우편발송대기::*}:
+            delete {우편보낸사람.%uuid of loop-value%::*}
+        delete {우편받는사람목록::*}
+        delete {우편보낸횟수::*}
+        delete {우편발송대기::*}
+        delete {보낸횟수카운트::*}
+        wait 600 seconds
+        give 1 writable book named "&f편지" to all players
+        send "%nl%&e편지가 지급되었습니다.%nl%" to all players
+        play sound "minecraft:entity.experience_orb.pickup" to all players
+    if {_realtime} is "00:00.00":
+        delete {출첵::*}
+
+command 별풍선 [<player>] [<integer>]:
+    trigger:
+        if arg-integer is 10000:
+            set {_r} to random integer between 1 and 10
+            play sound "entity.experience_orb.pickup" with volume 0.5 with pitch 1 to arg-player
+            send "%nl%&6* &b별풍선 &e100&f개를 후원받아 &7%{_r}%초 &f동안 채팅이 활성화되었습니다 &6*%nl%" to arg-player
+            add {_r}+1 to {c.e::%arg-player's uuid%}
+        if arg-integer is 50000:
+            play sound "block.anvil.land" with volume 0.5 with pitch 0.5 to arg-player
+            set {_r} to random integer between 1 and 1000
+            {_r} is between 1 and 250:
+                spawn 3 zombie at arg-player
+                send "%nl%&6* &b별풍선 &9500&f개를 후원받아 &3좀비 3마리&f가 생성되었습니다 &6*%nl%" to arg-player
+                stop
+            {_r} is between 251 and 450:
+                spawn 3 skeleton at arg-player
+                send "%nl%&6* &b별풍선 &9500&f개를 후원받아 &7스켈레톤 3마리&f가 생성되었습니다 &6*%nl%" to arg-player
+                stop
+            {_r} is between 451 and 650:
+                spawn 3 spider at arg-player
+                send "%nl%&6* &b별풍선 &9500&f개를 후원받아 &8거미 3마리&f가 생성되었습니다 &6*%nl%" to arg-player
+                stop
+            {_r} is between 651 and 850:
+                spawn 2 creeper at arg-player
+                send "%nl%&6* &b별풍선 &9500&f개를 후원받아 &a크리퍼 2마리&f가 생성되었습니다 &6*%nl%" to arg-player
+                stop
+            {_r} is between 851 and 950:
+                spawn 1 witch at arg-player
+                send "%nl%&6* &b별풍선 &9500&f개를 후원받아 &d마녀 1마리&f가 생성되었습니다 &6*%nl%" to arg-player
+                stop
+            {_r} is between 951 and 1000:
+                spawn 1 vindicator at arg-player
+                send "%nl%&6* &b별풍선 &9500&f개를 후원받아 &7변명자 1마리&f가 생성되었습니다 &6*%nl%" to arg-player
+                stop
+        if arg-integer is 299900:
+            send "%nl%&6* &e%arg-player%번님이 &b별풍선 &a2999&f개를 후원받아 &e모든 플레이어&f의 채팅이 &71분 &f동안 활성화 되었습니다 &6*%nl%" to all players
+            play sound "entity.player.levelup" to all players
+            loop all players:
+                add 60 to {c.e::%uuid of loop-player%}
+        if arg-integer is 499900:
+            send "%nl%&6* &e%arg-player%번님이 &b별풍선 &b4999&f개를 정신과 시간의 방에 수감 될 한명을 지목합니다 &6*%nl%" to all players
+            play sound "ui.toast.challenge_complete" with volume 1 with pitch 1.5 to all players
+        if arg-integer is 777700:
+            set {움직이기금지} to 30
+            send "%nl%&6* &e%arg-player%번님이 &b별풍선 &c7&a7&b7&e7&f개를 후원받아 30초간 전체 이동이 금지됩니다 &6*%nl%" to all players
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 0.9 to all players
+            wait 4 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.2 to all players
+            wait 4 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.2 to all players
+            wait 7 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.2 to all players
+            wait 7 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.05 to all players
+            wait 7 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.2 to all players
+            wait 4 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.2 to all players
+            wait 4 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 0.9 to all players
+            wait 3 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 0.9 to all players
+            wait 3 tick
+            play sound "minecraft:block.note_block.bit" with volume 1 with pitch 1.05 to all players
+        if arg-integer is 1000000:
+            set {_p} to arg-player's location
+            kill the arg-player
+            send "%nl%&6* &e%arg-player%번님이 &b별풍선 &c1&60&f,&e0&20&90&f개를 후원받아 즉사하셨습니다 &6*%nl%" to all players
+            play sound "ui.toast.challenge_complete" with volume 1 with pitch 1 to all players
+            create safe explosion of force 5 at {_p}
+            strike lightning effect at {_p}
+            loop 5 times:
+                launch flickering ball large coloured red, green and yellow fading to light green and black at {_p} with duration 4
+                wait 1 tick
+
+command z폭죽:
+    trigger:
+        if player is op:
+            launch flickering ball large coloured red, green and yellow fading to light green and black at {폭죽::*} with duration 4
+
+command z폭죽아이템:
+    trigger:
+        if player is op:
+            give stick named "&9폭죽위치지정(우클릭)" to player
+
+command z폭죽위치초기화:
+    trigger:
+        if player is op:
+            delete {폭죽::*}
+
+on rightclick:
+    if player's tool's name is "&9폭죽위치지정(우클릭)":
+        add player's location to {폭죽::*}
+        send "현재 위치가 폭죽이 터지는 구역으로 지정되었습니다" to player
+
+on first join:
+    teleport player to location at 2845, 67, 267
+
+on player walk:
+    if {움직이기금지} is set:
+        cancel event
+
+command /z표지판제한 [<player>] [<integer>]:
+    trigger:
+        player is op
+        arg-player is set
+        arg-integer is set
+        set {s.l::%arg-player's uuid%} to arg-integer
+        send "%arg-player%님의 표지판 제한 횟수를 %arg-integer%으(로) 설정했습니다" to player
+on load:
+    delete {c.e::*}
+on join:
+    {s.l::%player's uuid%} isn't set:
+        set {s.l::%player's uuid%} to 5
+on sign change:
+    {s.l::%player's uuid%} isn't 0:
+        remove 1 from {s.l::%player's uuid%}
+        send "&c표지판 사용 횟수가 %{s.l::%player's uuid%}%번 남았습니다" to player
+    else:
+        cancel event
+        send "&c표지판을 사용하실 수 없습니다" to player
+on chat:
+    if {관리자::*} does not contain player:
+        {c.e::%player's uuid%} = 0:
+            cancel event
+            send "&c채팅을 치실 수 없습니다" to player
+            #if {편지쓰는중::%uuid of player%} is not true:
+                #send "&c채팅을 치실 수 없습니다" to player
+
+command z접속초기화:
+    trigger:
+        if player is op:
+            delete {이름카운트a}
+            delete {번호::*}
+            delete {접속목록::*}
+            delete {관리자제외전체인원::*}
+
+command z접속확인:
+    trigger:
+        if player is op:
+            send "이름카운트 %{이름카운트a}%%nl%번호 %{번호::*}%%nl%접속목록 %{접속목록::*}%%nl%관리자제외전체인원 %{관리자제외전체인원::*}%" to player
+            loop all players:
+                if {출첵::%uuid of loop-player%} is true:
+                    send "출첵목록 : %loop-value%" to player
+
+on quit:
+    if {관리자::*} does not contain player:
+        add 1 to {나간번째}
+        console command "닉네임관리 설정 %player% quit%{나간번째}%"
+
+on join:
+    if {관리자::*} does not contain player:
+        set skin of player to skin of "_glape"
+        if {번호::%uuid of player%} is not set:
+            add 1 to {이름카운트a}
+            set {번호::%uuid of player%} to {이름카운트a}
+        wait 10 tick
+        console command "닉네임관리 설정 %player% %{번호::%uuid of player%}%"
+        console command "api관리 연동 %player% 숲 %{숲아이디::%uuid of player%}%"
+
+command z닉네임랜덤:
+    trigger:
+        if player is op:
+            loop size of {접속목록::*} times:
+                add 1 to {_랜덤}
+                console command "닉네임관리 설정 %{_랜덤}% r%{_랜덤}%"
+            delete {접속목록1::*}
+            loop {접속목록::*}:
+                add loop-value to {접속목록1::*}
+            delete {countrandom}
+            set {_cimsi} to size of {접속목록1::*}
+            loop {_cimsi} times:
+                set {_임시} to random element of {접속목록1::*}
+                remove {_임시} from {접속목록1::*}
+                add 1 to {countrandom}
+                set {번호::%uuid of {_임시}%} to {countrandom}
+                wait 2 tick
+                console command "닉네임관리 설정 %{_임시}% %{번호::%uuid of {_임시}%}%"
+                console command "api관리 연동 %{_임시}% 숲 %{숲아이디::%uuid of {_임시}%}%"
+            send "%nl%&e닉네임이 랜덤으로 변경되었습니다%nl%" to all players
+            play sound "entity.player.levelup" to all players
+
+command z관리자:
+    trigger:
+        if player is op:
+            if {관리자::*} does not contain player:
+                add player to {관리자::*}
+                send "관리자에 추가됨" to player
+                remove player from {관리자제외전체인원::*}
+                delete {번호::%uuid of player%}
+                remove player from {접속목록::*}
+
+command z관리자나가기:
+    trigger:
+        if player is op:
+            remove player from {관리자::*}
+            send "관리자에서 제거됨"
+
+command z관리자확인:
+    trigger:
+        if player is op:
+            send "%{관리자::*}%" to player
+
+on join:
+    if {관리자제외전체인원::*} does not contain player:
+        if {관리자::*} does not contain player:
+            add player to {관리자제외전체인원::*}
+    if {접속목록::*} does not contain player:
+        if {관리자::*} does not contain player:
+            add player to {접속목록::*}
+
+on quit:
+    remove player from {관리자제외전체인원::*}
+
+on join:
+    set join message to ""
+
+on quit:
+    set quit message to ""
+
+command z편지 [<player>]:
+    trigger:
+        if player is op:
+            if arg is not set:
+                #give 1 paper named "&f편지" with lore "&e&o편지를 들고 우클릭하여 편지쓰기" to all players
+                give 1 writable book named "&f편지" to all players
+                send "%nl%&e편지가 지급되었습니다.%nl%" to all players
+                play sound "minecraft:entity.experience_orb.pickup" to all players
+            else:
+                #give 1 paper named "&f편지" with lore "&e&o편지를 들고 우클릭하여 편지쓰기" to arg-player
+                give 1 writable book named "&f편지" to arg-player
+                send "%nl%&e편지가 지급되었습니다.%nl%" to arg-player
+                play sound "minecraft:entity.experience_orb.pickup" to arg-player
+
+on craft of writable book:
+    cancel event
+    send "&c해당 아이템은 조합할 수 없습니다" to player
+
+#on rightclick:
+#    if name of event-item is "&f편지":
+#        if {편지쓰는중::%uuid of player%} is not true:
+#            set {편지쓰는중::%uuid of player%} to true
+#            send "%nl%&e채팅창에 편지에 작성할 내용을 입력하여 편지를 작성할 수 있습니다.%nl%&7편지를 다시 우클릭하여 편지쓰기를 취소할 수 있습니다.%nl%" to player
+#            play sound "minecraft:entity.experience_orb.pickup" to player
+#        else:
+#            delete {편지쓰는중::%uuid of player%}
+#            send "%nl%&e편지쓰기를 &c취소&e하였습니다.%nl%" to player
+#            play sound "minecraft:entity.experience_orb.pickup" to player
+
+#on player's held item change:
+#    if {편지쓰는중::%uuid of player%} is true:
+#        delete {편지쓰는중::%uuid of player%}
+#        send "%nl%&e편지쓰기를 &c취소&e하였습니다.%nl%" to player
+#        play sound "minecraft:entity.experience_orb.pickup" to player
+
+#on chat:
+#    if {편지쓰는중::%uuid of player%} is true:
+#        set {_realtime} to now formatted human-readable as "MM/dd hh:mm"
+#        set name of player's held item to "&f편지 &7&o(작성됨)"
+#        set lore of player's held item to "&7&o%the chat message%%nl%&7작성일시 : &7%{_realtime}%"
+#        play sound "minecraft:entity.experience_orb.pickup" to player
+#        delete {편지쓰는중::%uuid of player%}
+#        send "%nl%&e편지를 작성하였습니다.%nl%" to player
+
+command z초대권구매비용초기화:
+    trigger:
+        set {초대권구매비용} to 50
+
+on rightclick on entity:
+    if name of entity contain "편지상점":
+        open chest with 3 rows named "&f편지 상점" to player
+        play sound "minecraft:entity.experience_orb.pickup" to player
+        set slot 13 of current inventory of player to writable book named "&f편지" with lore "&7클릭하여 획득"
+
+on rightclick on entity:
+    if name of entity contain "자재상점":
+        open chest with 3 rows named "&8건축자재 상점" to player
+        play sound "minecraft:entity.experience_orb.pickup" to player
+        set slot 0 of current inventory of player to 5 of quartz block named "&f석영 블럭 (5개)" with lore "&e비용 : &6금 &e1개"
+        set slot 2 of current inventory of player to white terracotta named "&f테라코타류"
+        set slot 4 of current inventory of player to white concrete named "&f콘크리트류"
+        set slot 6 of current inventory of player to sea lantern named "&b바다 랜턴" with lore "&e비용 : &6금 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 8 of current inventory of player to raw prismarine block named "&9프리즈머린류"
+        set slot 18 of current inventory of player to nether brick block named "&c네더 벽돌" with lore "&e비용 : &6금 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 20 of current inventory of player to deepslate block named "&8심층암" with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 22 of current inventory of player to smooth stone named "&7매끄러운 돌" with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 24 of current inventory of player to living tube coral block named "&9산호블럭류"
+        set slot 26 of current inventory of player to candles named "&f양초류"
+
+on rightclick on entity:
+    if name of entity contain "초대권상점":
+        open chest with 3 rows named "&9초대권 상점" to player
+        play sound "minecraft:entity.experience_orb.pickup" to player
+        set slot 13 of current inventory of player to itemsadder item "ab:invite" named "&e초대권" with lore "&e구매비용 : &b다이아몬드 &e%{초대권구매비용}%개"
+
+on rightclick on entity:
+    if name of entity contain "결혼권상점":
+        open chest with 3 rows named "강제결혼권 상점" to player
+        play sound "minecraft:entity.experience_orb.pickup" to player
+        set slot 13 of current inventory of player to itemsadder item "ab:gangjae" named "&c강제결혼권" with lore "&e구매비용 : &b다이아몬드 &e64개"
+
+on inventory click:
+    if event-item is itemsadder item "icon_left_blue" named "&f뒤로가기":
+        cancel event
+        open chest with 3 rows named "&8건축자재 상점" to player
+        play sound "minecraft:entity.experience_orb.pickup" to player
+        set slot 0 of current inventory of player to 5 of quartz block named "&f석영 블럭 (5개)" with lore "&e비용 : &6금 &e1개"
+        set slot 2 of current inventory of player to white terracotta named "&f테라코타류"
+        set slot 4 of current inventory of player to white concrete named "&f콘크리트류"
+        set slot 6 of current inventory of player to sea lantern named "&b바다 랜턴" with lore "&e비용 : &6금 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 8 of current inventory of player to raw prismarine block named "&9프리즈머린류"
+        set slot 18 of current inventory of player to nether brick block named "&c네더 벽돌" with lore "&e비용 : &6금 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 20 of current inventory of player to deepslate block named "&8심층암" with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 22 of current inventory of player to smooth stone named "&7매끄러운 돌" with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        set slot 24 of current inventory of player to living tube coral block named "&9산호블럭류"
+        set slot 26 of current inventory of player to candles named "&f양초류"
+
+on inventory click:
+    if inventory name is "&9프리즈머린 상점":
+        cancel event
+        if event-item is not air:
+            if clicked slot is not 18:
+                if clicked inventory is not player's inventory:
+                    wait 1 tick
+                    set {_ga} to amount of gold ingot in inventory of player
+                    if "%event-clicktype%" is "left mouse button":
+                        if {_ga} >= 3:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 3 gold ingot from player
+                            give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "left mouse button with shift":
+                        if {_ga} >= 30:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 30 gold ingot from player
+                            loop 10 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "right mouse button with shift":
+                        if {_ga} >= 180:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 180 gold ingot from player
+                            loop 64 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+    if inventory name is "&f양초 상점":
+        cancel event
+        if event-item is not air:
+            if clicked slot is not 18:
+                if clicked inventory is not player's inventory:
+                    wait 1 tick
+                    set {_wa1} to amount of oak logs in inventory of player
+                    set {_wa2} to amount of spruce logs in inventory of player
+                    set {_wa3} to amount of birch logs in inventory of player
+                    set {_wa4} to amount of jungle logs in inventory of player
+                    set {_wa5} to amount of acacia logs in inventory of player
+                    set {_wa6} to amount of dark oak logs in inventory of player
+                    set {_wa7} to amount of mangrove logs in inventory of player
+                    set {_wa8} to amount of cherry logs in inventory of player
+                    if "%event-clicktype%" is "left mouse button":
+                        if {_wa1} >= 6:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 6 oak logs from player
+                            give event-item with lore "" to player
+                        else:
+                            if {_wa2} >= 6:
+                                play sound "minecraft:entity.experience_orb.pickup" to player
+                                remove 6 spruce logs from player
+                                give event-item with lore "" to player
+                            else:
+                                if {_wa3} >= 6:
+                                    play sound "minecraft:entity.experience_orb.pickup" to player
+                                    remove 6 birch logs from player
+                                    give event-item with lore "" to player
+                                else:
+                                    if {_wa4} >= 6:
+                                        play sound "minecraft:entity.experience_orb.pickup" to player
+                                        remove 6 jungle logs from player
+                                        give event-item with lore "" to player
+                                    else:
+                                        if {_wa5} >= 6:
+                                            play sound "minecraft:entity.experience_orb.pickup" to player
+                                            remove 6 acacia logs from player
+                                            give event-item with lore "" to player
+                                        else:
+                                            if {_wa6} >= 6:
+                                                play sound "minecraft:entity.experience_orb.pickup" to player
+                                                remove 6 dark oak logs from player
+                                                give event-item with lore "" to player
+                                            else:
+                                                if {_wa7} >= 6:
+                                                    play sound "minecraft:entity.experience_orb.pickup" to player
+                                                    remove 6 mangrove logs from player
+                                                    give event-item with lore "" to player
+                                                else:
+                                                    if {_wa8} >= 6:
+                                                        play sound "minecraft:entity.experience_orb.pickup" to player
+                                                        remove 6 cherry logs from player
+                                                        give event-item with lore "" to player
+                                                    else:
+                                                        send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                                                        play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "left mouse button with shift":
+                        if {_wa1} >= 60:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 60 oak logs from player
+                            loop 10 times:
+                                give event-item with lore "" to player
+                        else:
+                            if {_wa2} >= 60:
+                                play sound "minecraft:entity.experience_orb.pickup" to player
+                                remove 60 spruce logs from player
+                                loop 10 times:
+                                    give event-item with lore "" to player
+                            else:
+                                if {_wa3} >= 60:
+                                    play sound "minecraft:entity.experience_orb.pickup" to player
+                                    remove 60 birch logs from player
+                                    loop 10 times:
+                                        give event-item with lore "" to player
+                                else:
+                                    if {_wa4} >= 60:
+                                        play sound "minecraft:entity.experience_orb.pickup" to player
+                                        remove 60 jungle logs from player
+                                        loop 10 times:
+                                            give event-item with lore "" to player
+                                    else:
+                                        if {_wa5} >= 60:
+                                            play sound "minecraft:entity.experience_orb.pickup" to player
+                                            remove 60 acacia logs from player
+                                            loop 10 times:
+                                                give event-item with lore "" to player
+                                        else:
+                                            if {_wa6} >= 60:
+                                                play sound "minecraft:entity.experience_orb.pickup" to player
+                                                remove 60 dark oak logs from player
+                                                loop 10 times:
+                                                    give event-item with lore "" to player
+                                            else:
+                                                if {_wa7} >= 60:
+                                                    play sound "minecraft:entity.experience_orb.pickup" to player
+                                                    remove 60 mangrove logs from player
+                                                    loop 10 times:
+                                                        give event-item with lore "" to player
+                                                else:
+                                                    if {_wa8} >= 60:
+                                                        play sound "minecraft:entity.experience_orb.pickup" to player
+                                                        remove 60 cherry logs from player
+                                                        loop 10 times:
+                                                            give event-item with lore "" to player
+                                                    else:
+                                                        send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                                                        play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "right mouse button with shift":
+                        if {_wa1} >= 384:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 384 oak logs from player
+                            loop 64 times:
+                                give event-item with lore "" to player
+                        else:
+                            if {_wa2} >= 384:
+                                play sound "minecraft:entity.experience_orb.pickup" to player
+                                remove 384 spruce logs from player
+                                loop 64 times:
+                                    give event-item with lore "" to player
+                            else:
+                                if {_wa3} >= 384:
+                                    play sound "minecraft:entity.experience_orb.pickup" to player
+                                    remove 384 birch logs from player
+                                    loop 64 times:
+                                        give event-item with lore "" to player
+                                else:
+                                    if {_wa4} >= 384:
+                                        play sound "minecraft:entity.experience_orb.pickup" to player
+                                        remove 384 jungle logs from player
+                                        loop 64 times:
+                                            give event-item with lore "" to player
+                                    else:
+                                        if {_wa5} >= 384:
+                                            play sound "minecraft:entity.experience_orb.pickup" to player
+                                            remove 384 acacia logs from player
+                                            loop 64 times:
+                                                give event-item with lore "" to player
+                                        else:
+                                            if {_wa6} >= 384:
+                                                play sound "minecraft:entity.experience_orb.pickup" to player
+                                                remove 384 dark oak logs from player
+                                                loop 64 times:
+                                                    give event-item with lore "" to player
+                                            else:
+                                                if {_wa7} >= 384:
+                                                    play sound "minecraft:entity.experience_orb.pickup" to player
+                                                    remove 384 mangrove logs from player
+                                                    loop 64 times:
+                                                        give event-item with lore "" to player
+                                                else:
+                                                    if {_wa8} >= 384:
+                                                        play sound "minecraft:entity.experience_orb.pickup" to player
+                                                        remove 384 cherry logs from player
+                                                        loop 64 times:
+                                                            give event-item with lore "" to player
+                                                    else:
+                                                        send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                                                        play sound "entity.enderman.teleport" to player
+    if inventory name is "&8건축자재 상점":
+        cancel event
+        if clicked slot is 26:
+            open chest with 3 rows named "&f양초 상점" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 0 of current inventory of player to candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 1 of current inventory of player to white candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 2 of current inventory of player to light gray candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 3 of current inventory of player to gray candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 4 of current inventory of player to black candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 5 of current inventory of player to brown candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 6 of current inventory of player to red candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 7 of current inventory of player to orange candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 8 of current inventory of player to yellow candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 9 of current inventory of player to lime candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 10 of current inventory of player to green candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 11 of current inventory of player to cyan candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 12 of current inventory of player to light blue candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 13 of current inventory of player to blue candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 14 of current inventory of player to purple candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 15 of current inventory of player to magenta candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 18 of current inventory of player to itemsadder item "icon_left_blue" named "&f뒤로가기"
+            set slot 16 of current inventory of player to pink candles with lore "&e비용 : &6나무 원목 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        if clicked slot is 24:
+            open chest with 3 rows named "&9산호블럭 상점" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 0 of current inventory of player to living tube coral block with lore "&e비용 : &6흙 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 1 of current inventory of player to living brain coral block with lore "&e비용 : &6흙 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 2 of current inventory of player to living bubble coral block with lore "&e비용 : &6흙 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 3 of current inventory of player to living fire coral block with lore "&e비용 : &6흙 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 18 of current inventory of player to itemsadder item "icon_left_blue" named "&f뒤로가기"
+            set slot 4 of current inventory of player to living horn coral block with lore "&e비용 : &6흙 &e6개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        if clicked slot is 22:
+            set {_ca} to amount of cobblestone block in inventory of player
+            if "%event-clicktype%" is "left mouse button":
+                if {_ca} >= 2:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 2 cobblestone block from player
+                    give smooth stone with lore "" to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "left mouse button with shift":
+                if {_ca} >= 20:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 20 cobblestone block from player
+                    loop 10 times:
+                        give smooth stone with lore "" to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "right mouse button with shift":
+                if {_ca} >= 128:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 128 cobblestone block from player
+                    loop 64 times:
+                        give smooth stone with lore "" to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+        if clicked slot is 20:
+            set {_ca} to amount of cobblestone block in inventory of player
+            if "%event-clicktype%" is "left mouse button":
+                if {_ca} >= 2:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 2 cobblestone block from player
+                    give deepslate block with lore "" to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "left mouse button with shift":
+                if {_ca} >= 20:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 20 cobblestone block from player
+                    loop 10 times:
+                        give deepslate block with lore "" to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "right mouse button with shift":
+                if {_ca} >= 128:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 128 cobblestone block from player
+                    loop 64 times:
+                        give deepslate block with lore "" to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+        if clicked slot is 18:
+            set {_ga} to amount of gold ingot in inventory of player
+            if "%event-clicktype%" is "left mouse button":
+                if {_ga} >= 4:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 4 gold ingot from player
+                    give 1 nether brick block to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "left mouse button with shift":
+                if {_ga} >= 40:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 40 gold ingot from player
+                    give 10 nether brick block to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "right mouse button with shift":
+                if {_ga} >= 256:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 256 gold ingot from player
+                    give 64 nether brick block to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            
+        if clicked slot is 0:
+            set {_ga} to amount of gold ingot in inventory of player
+            if {_ga} >= 1:
+                play sound "minecraft:entity.experience_orb.pickup" to player
+                remove 1 gold ingot from player
+                give 5 quartz block to player
+            else:
+                send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                play sound "entity.enderman.teleport" to player
+        if clicked slot is 6:
+            set {_ga} to amount of gold ingot in inventory of player
+            if "%event-clicktype%" is "left mouse button":
+                if {_ga} >= 6:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 6 gold ingot from player
+                    give 1 sea lantern to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "left mouse button with shift":
+                if {_ga} >= 60:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 60 gold ingot from player
+                    give 10 sea lantern to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+            if "%event-clicktype%" is "right mouse button with shift":
+                if {_ga} >= 384:
+                    play sound "minecraft:entity.experience_orb.pickup" to player
+                    remove 384 gold ingot from player
+                    give 64 sea lantern to player
+                else:
+                    send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                    play sound "entity.enderman.teleport" to player
+        if clicked slot is 2:
+            open chest with 3 rows named "&f테라코타 상점" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 0 of current inventory of player to undyed hardened clay blocks with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 1 of current inventory of player to white stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 2 of current inventory of player to light gray stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 3 of current inventory of player to gray stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 4 of current inventory of player to black stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 5 of current inventory of player to brown stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 6 of current inventory of player to red stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 7 of current inventory of player to orange stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 8 of current inventory of player to yellow stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 9 of current inventory of player to lime stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 10 of current inventory of player to green stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 11 of current inventory of player to cyan stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 12 of current inventory of player to light blue stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 13 of current inventory of player to blue stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 14 of current inventory of player to purple stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 15 of current inventory of player to purple stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 16 of current inventory of player to magenta stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 18 of current inventory of player to itemsadder item "icon_left_blue" named "&f뒤로가기"
+            set slot 17 of current inventory of player to pink stained hardened clay with lore "&e비용 : &7돌 &e4개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+        if clicked slot is 4:
+            open chest with 3 rows named "&f콘크리트 상점" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 0 of current inventory of player to white concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 1 of current inventory of player to light gray concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 2 of current inventory of player to gray concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 3 of current inventory of player to black concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 4 of current inventory of player to brown concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 5 of current inventory of player to red concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 6 of current inventory of player to orange concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 7 of current inventory of player to yellow concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 8 of current inventory of player to lime concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 9 of current inventory of player to green concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 10 of current inventory of player to cyan concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 11 of current inventory of player to light blue concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 12 of current inventory of player to blue concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 13 of current inventory of player to purple concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 14 of current inventory of player to magenta concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 15 of current inventory of player to pink concrete with lore "&e비용 : &7조약돌 &e2개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 18 of current inventory of player to itemsadder item "icon_left_blue" named "&f뒤로가기"
+        if clicked slot is 8:
+            open chest with 3 rows named "&9프리즈머린 상점" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            set slot 0 of current inventory of player to raw prismarine block with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 1 of current inventory of player to prismarine stairs with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 2 of current inventory of player to raw prismarine slabs with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 3 of current inventory of player to prismarine walls with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 4 of current inventory of player to prismarine bricks with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 5 of current inventory of player to prismarine brick stairs with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 6 of current inventory of player to prismarine brick slabs with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 7 of current inventory of player to dark prismarine blocks with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 8 of current inventory of player to dark prismarine stairs with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+            set slot 18 of current inventory of player to itemsadder item "icon_left_blue" named "&f뒤로가기"
+            set slot 9 of current inventory of player to dark prismarine slabs with lore "&e비용 : &6금 &e3개%nl%&7좌클릭으로 한개씩 구매%nl%&7쉬프트+좌클릭으로 10개씩 구매%nl%&7쉬프트+우클릭으로 1세트씩 구매"
+    
+    if inventory name is "&9산호블럭 상점":
+        cancel event
+        if event-item is not air:
+            if clicked slot is not 18:
+                if clicked inventory is not player's inventory:
+                    wait 1 tick
+                    set {_da} to amount of dirt in inventory of player
+                    if "%event-clicktype%" is "left mouse button":
+                        if {_da} >= 6:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 6 dirt from player
+                            give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "left mouse button with shift":
+                        if {_da} >= 60:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 60 dirt from player
+                            loop 10 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "right mouse button with shift":
+                        if {_da} >= 384:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 384 dirt from player
+                            loop 64 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+
+    if inventory name is "&f테라코타 상점":
+        cancel event
+        if event-item is not air:
+            if clicked slot is not 18:
+                if clicked inventory is not player's inventory:
+                    wait 1 tick
+                    set {_sa} to amount of stone block in inventory of player
+                    if "%event-clicktype%" is "left mouse button":
+                        if {_sa} >= 4:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 4 stone block from player
+                            give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "left mouse button with shift":
+                        if {_sa} >= 40:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 40 stone block from player
+                            loop 10 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "right mouse button with shift":
+                        if {_sa} >= 256:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 256 stone block from player
+                            loop 64 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+    if inventory name is "&f콘크리트 상점":
+        cancel event
+        if event-item is not air:
+            if clicked slot is not 18:
+                if clicked inventory is not player's inventory:
+                    wait 1 tick
+                    set {_ca} to amount of cobblestone block in inventory of player
+                    if "%event-clicktype%" is "left mouse button":
+                        if {_ca} >= 2:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 2 cobblestone block from player
+                            give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "left mouse button with shift":
+                        if {_ca} >= 20:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 20 cobblestone block from player
+                            loop 10 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+                    if "%event-clicktype%" is "right mouse button with shift":
+                        if {_ca} >= 128:
+                            play sound "minecraft:entity.experience_orb.pickup" to player
+                            remove 128 cobblestone block from player
+                            loop 64 times:
+                                give event-item with lore "" to player
+                        else:
+                            send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                            play sound "entity.enderman.teleport" to player
+
+on inventory click:
+    if inventory name is "강제결혼권 상점":
+        cancel event
+        if clicked slot is 13:
+            set {_da} to amount of diamond in inventory of player
+            if {_da} >= 64:
+                send "%nl%&c강제결혼권&e을 성공적으로 구매하였습니다.%nl%" to player
+                play sound "minecraft:entity.experience_orb.pickup" to player
+                remove 64 diamond from player
+                give itemsadder item "ab:gangjae" to player
+            else:
+                send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                play sound "entity.enderman.teleport" to player
+    if inventory name is "&9초대권 상점":
+        cancel event
+        if clicked slot is 13:
+            set {_da} to amount of diamond in inventory of player
+            if {_da} >= {초대권구매비용}:
+                send "%nl%&e초대권을 성공적으로 구매하였습니다.%nl%" to player
+                play sound "minecraft:entity.experience_orb.pickup" to player
+                loop {초대권구매비용} times:
+                    remove 1 diamond from player
+                set {초대권구매비용} to {초대권구매비용}+5
+                set slot 13 of current inventory of player to itemsadder item "ab:invite" named "&e초대권" with lore "&e구매비용 : &b다이아몬드 &e%{초대권구매비용}%개"
+                give itemsadder item "ab:invite" named "&e초대권" to player
+            else:
+                send "%nl%&c아이템을 구매하기 위한 비용이 부족합니다.%nl%" to player
+                play sound "entity.enderman.teleport" to player
+    if inventory name is "&f편지 상점":
+        cancel event
+        if clicked slot is 13:
+            send "%nl%&e편지를 성공적으로 획득하였습니다.%nl%" to player
+            play sound "minecraft:entity.experience_orb.pickup" to player
+            give 1 writable book named "&f편지" to player
+
+every 20 tick:
+    loop all players:
+        add 0 to {죽은횟수::%uuid of loop-player%}
+        add 0 to {죽인횟수::%uuid of loop-player%}
+        add 0 to {호감도::%uuid of loop-player%}
+        wipe loop-player's sidebar
+        set name of sidebar of loop-player to "&e정보"
+        set {_realtime2} to now formatted human-readable as "hh:mm"
+        set score "&e당신의 표지판 제한 횟수 : %{s.l::%uuid of loop-player%}%회" in sidebar of loop-player to 4
+        set score "&e당신의 호감도 : %{호감도::%uuid of loop-player%}%" in sidebar of loop-player to 3
+        set score "&e현재시각 : %{_realtime2}%" in sidebar of loop-player to 2
+        set score "&c죽인횟수 : %{죽인횟수::%uuid of loop-player%}%" in sidebar of loop-player to 1
+        set score "&c죽은횟수 : %{죽은횟수::%uuid of loop-player%}%" in sidebar of loop-player to 0
+
+command z죽은횟수초기화 [<player>]:
+    trigger:
+        if player is op:
+            delete {죽은횟수::%uuid of arg-player%}
+            send "%arg-player%님의 죽은횟수를 초기화했습니다(0)" to player
+
+command z죽인횟수초기화 [<player>]:
+    trigger:
+        if player is op:
+            delete {죽인횟수::%uuid of arg-player%}
+            send "%arg-player%님의 죽인횟수를 초기화했습니다(0)" to player
+
+on death of player:
+    if attacker is player:
+        add 1 to {죽은횟수::%uuid of victim%}
+        add 1 to {죽인횟수::%uuid of attacker%}
+        set death message to ""
+
+command 공지 [<text>]:
+    trigger:
+        if player is op:
+            send "%nl%&7&l<&e &l공지 &7&l> &r&e%arg-text%%nl%" to all players
+
+on rightclick on entity:
+    if name of entity contain "우체부":
+        open chest with 4 rows named "&e우편 보내기" to player
+        play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+        set {_SLOT} to 0
+        loop 45 times:
+            set slot {_SLOT} of current inventory of player to light blue stained glass pane named ""
+            add 1 to {_SLOT}
+        set slot 13 of current inventory of player to {우편아이템::%uuid of player%}
+        set slot 31 of current inventory of player to itemsadder item "_iainternal:icon_next_orange" named "&e다음" with lore "&7빈칸에 편지를 넣고 버튼을 눌러주세요"
+        set {우편1::%uuid of player%} to true
+
+on inventory click:
+    if inventory name is "&e우편 보내기":
+        if event-item is not writable book:
+            if clicked slot is not air:
+                cancel event
+                if clicked slot is 31:
+                    if slot 13 of current inventory of player is writable book:
+                        delete {우편1::%uuid of player%}
+                        set {우편아이템::%uuid of player%} to slot 13 of current inventory of player
+                        open chest with 6 rows named "&e우편 보내기 (보낼 사람을 선택해주세요)" to player
+                        play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+                        set {_slot} to 0
+                        loop {관리자제외전체인원::*}:
+                            set {_head} to skull of loop-value
+                            set name of {_head} to "&f%loop-value%"
+                            set slot {_slot} of player's current inventory to {_head}
+                            add 1 to {_slot}
+                    else:
+                        send "&c편지를 넣어주세요" to player
+        if event-item is writable book:
+            if clicked slot is 13:
+                delete {우편아이템::%uuid of player%}
+            else:
+                set {우편아이템::%uuid of player%} to slot 13 of current inventory of player
+
+on inventory click:
+    if inventory name is "&e우편 보내기 (보낼 사람을 선택해주세요)":
+        cancel event
+        if event-item is not air:
+            loop all players:
+                if event-item's name is "&f%name of loop-player%":
+                    if {우편보낸사람.%uuid of player%::%uuid of loop-player%} is not true:
+                        set {우편보낸사람.%uuid of player%::%uuid of loop-player%} to true
+                        add 1 to {우편보낸횟수::%uuid of player%}
+                        set {우편보낼아이템%{우편보낸횟수::%uuid of player%}%::%uuid of player%} to {우편아이템::%uuid of player%}
+                        set {우편받을사람%{우편보낸횟수::%uuid of player%}%::%uuid of player%} to uuid of loop-player
+                        add player to {우편발송대기::*}
+                        if {우편받는사람목록::*} does not contain loop-player:
+                            add loop-player to {우편받는사람목록::*}
+                        #add {우편아이템::%uuid of player%} to {post.%uuid of loop-player%::*}
+                        send "%nl%&e편지를 발송하였습니다%nl%" to player
+                        play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+                        #send "%nl%&e우편이 도착하였습니다%nl%" to loop-player
+                        #play sound "minecraft:entity.experience_orb.pickup" with volume 1 to loop-player
+                        delete {우편아이템::%uuid of player%}
+                        close player's inventory
+                    else:
+                        send "&c같은 사람에게 편지는 하루에 최대 1번만 보낼 수 있습니다" to player
+
+on inventory close:
+    if {우편1::%uuid of player%} is true:
+        delete {우편1::%uuid of player%}
+        if {우편아이템::%uuid of player%} is not writable book:
+            if slot 13 of current inventory of player is not air:
+                set {_i} to slot 13 of current inventory of player
+                give {_i} to player
+
+on inventory click:
+    if inventory name is "&e우편함":
+        cancel event
+        if clicked inventory is not player's inventory:
+            if event-item is not air:
+                set {_i2} to event-item
+                set {_s2} to index of clicked slot
+                set slot {_s2} of current inventory of player to air
+                give {_i2} to player
+                play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+                remove {_i2} from {post.%uuid of player%::*}
+                open chest with 6 rows named "&e우편함" to player
+                wait 1 tick
+                set {_postinv} to 0
+                loop {post.%uuid of player%::*}:
+                    set slot {_postinv} of current inventory of player to loop-value
+                    add 1 to {_postinv}
+
+command ztp [<text>]:
+    trigger:
+        if player is op:
+            loop all players:
+                if name of loop-player is arg-text:
+                    teleport player to loop-player
+
+every 5 tick:
+    loop all players:
+        add amount of itemsadder item "ab:bag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:bagblue" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:greenbag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:orangebag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:purplebag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:redbag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:skybluebag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        add amount of itemsadder item "ab:yellowbag" in inventory of loop-player to {_mga.%uuid of loop-player%}
+        if {_mga.%uuid of loop-player%} >= 1:
+            apply potion of glowing of tier 1 without particles to loop-player for 6 tick
+
+command /타이머 [<number>]:
+	trigger:
+		if arg-1 is set:
+			set {Timer} to arg-1
+			set {MaxTimer} to arg-1
+			create bossbar titled "&f[&9남은 시간: &b%{Timer::%uuid of player%}%&9초&f]" and id "타이머" for player with progress 100 with colors blue with style segmented 10
+		else:
+			send "&c시간을 설정해주세요" to player
+
+command /타이머제거:
+	trigger:
+		remove bossbar "타이머"
+		delete {Timer}
+		delete {MaxTimer}
+
+every 2 tick:
+	loop all players:
+		if {Timer} is set:
+			if {Timer} is 0:
+				delete {Timer}
+				delete {MaxTimer}
+				remove bossbar "타이머"
+				send "&4-----------------------" to loop-player
+				send "&c&l시간 종료!!" to loop-player
+				send "&4-----------------------" to loop-player
+				stop
+			subtract 0.1 from {Timer}
+			set {_per} to {Timer}/{MaxTimer}*100
+			if {_per} is between 80 and 100:
+				set bossbar "타이머" color to blue
+			else if {_per} is between 50 and 79.99:
+				set bossbar "타이머" color to green
+			else if {_per} is between 20 and 49.99:
+				set bossbar "타이머" color to yellow
+			else if {_per} is between 0 and 19.99:
+				set bossbar "타이머" color to red
+			set bossbar "타이머" progress to {_per}
+			set bossbar "타이머" title to "&f[&9남은 시간: &f[&b%{Timer}%&9초&f]"
+
+#command 미니게임참가:
+#    trigger:
+#        if {미니게임참가자::*} does not contain player:
+#            send "%nl%&e미니게임에 참가자로 참여하였습니다%nl%" to player
+#            play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+#            add player to {미니게임참가자::*}
+#        else:
+#            send "%nl%&c이미 미니게임에 참가자로 참여했습니다%nl%" to player
+
+command 바닥지우기참가:
+    trigger:
+        if {바닥지우기게임참가자::*} does not contain player:
+            send "%nl%&e바닥지우기 게임에 참가하였습니다%nl%" to player
+            play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+            add player to {바닥지우기게임참가자::*}
+        else:
+            send "%nl%&c이미 바닥지우기 게임에 참가자로 참여했습니다%nl%" to player
+
+command 바닥지우기참가취소:
+    trigger:
+        if {바닥지우기게임참가자::*} contain player:
+            send "%nl%&e바닥지우기 게임 참가를 취소하였습니다%nl%" to player
+            play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+            remove player from {바닥지우기게임참가자::*}
+        else:
+            send "%nl%&c당신은 이미 바닥지우기 게임 참가자가 아닙니다%nl%" to player
+
+command z미니게임팀확인:
+    trigger:
+        if player is op:
+            send "레드팀 : %{미니겜레드팀::*}%%nl%블루팀 : %{미니겜블루팀::*}%" to player
+
+command z미니게임팀추가 [<text>] [<text>]:
+    trigger:
+        if player is op:
+            if arg-1 is set:
+                loop all players:
+                    if name of loop-player is arg-1:
+                        if arg-2 is set:
+                            if arg-2 is "레드":
+                                if {미니겜레드팀::*} does not contain loop-player:
+                                    if {미니겜블루팀::*} does not contain loop-player:
+                                        add loop-player to {미니겜레드팀::*}
+                                        send "&e%loop-player%님을 레드팀에 추가하였습니다" to player
+                                    else:
+                                        send "&c해당 플레이어는 이미 팀에 속해있습니다%nl%해당 플레이어의 팀을 제거하시려면 /z미니게임팀제거 [플레이어번호] 명령어를 사용해주세요" to player
+                                else:
+                                    send "&c해당 플레이어는 이미 팀에 속해있습니다%nl%해당 플레이어의 팀을 제거하시려면 /z미니게임팀제거 [플레이어번호] 명령어를 사용해주세요" to player
+                            if arg-2 is "블루":
+                                if {미니겜블루팀::*} does not contain loop-player:
+                                    if {미니겜레드팀::*} does not contain loop-player:
+                                        add loop-player to {미니겜블루팀::*}
+                                        send "&e%loop-player%님을 블루팀에 추가하였습니다" to player
+                                    else:
+                                        send "&c해당 플레이어는 이미 팀에 속해있습니다%nl%해당 플레이어의 팀을 제거하시려면 /z미니게임팀제거 [플레이어번호] 명령어를 사용해주세요" to player
+                                else:
+                                    send "&c해당 플레이어는 이미 팀에 속해있습니다%nl%해당 플레이어의 팀을 제거하시려면 /z미니게임팀제거 [플레이어번호] 명령어를 사용해주세요" to player
+                            else if arg-2 is not "레드" or "블루":
+                                send "&c플레이어의 팀을 레드 / 블루 둘중 하나로 입력해주세요" to player
+                        else:
+                            send "&c플레이어의 팀을 입력해주세요" to player
+            else:
+                send "&c플레이어를 설정해주세요" to player
+
+command z미니게임팀제거 [<player>]:
+    trigger:
+        if player is op:
+            if arg-1 is set:
+                loop all players:
+                    if name of loop-player is arg-1:
+                        remove loop-player from {미니겜레드팀::*}
+                        remove loop-player from {미니겜블루팀::*}
+                        send "&e%loop-player%님의 팀을 제거하였습니다" to player
+            else:
+                send "&c팀을 제거할 플레이어번호를 입력해주세요" to player
+
+
+command 후원연동 [<player>] [<text>]:
+    trigger:
+        if player is op:
+            send "&e%arg-player%(현재기준)님의 숲 아이디를 %arg-text%로 설정하였습니다." to player
+            set {숲아이디::%uuid of arg-player%} to arg-text
+            player command "api관리 연동 %arg-player% 숲 %{숲아이디::%uuid of arg-player%}%"
+            wait 10 tick
+            player command "api관리 시작 %arg-player%"
+
+command z바닥지우기시작:
+    trigger:
+        if player is op:
+            console command "fill 4617 431 -2301 4553 431 -2365 stone replace air"
+            console command "fill 4617 414 -2301 4553 414 -2365 stone replace air"
+            console command "fill 4617 397 -2301 4553 397 -2365 stone replace air"
+            console command "fill 4617 431 -2301 4553 431 -2365 stone replace cobblestone"
+            console command "fill 4617 414 -2301 4553 414 -2365 stone replace cobblestone"
+            console command "fill 4617 397 -2301 4553 397 -2365 stone replace cobblestone"
+            teleport all players to location at 4588, 460, -2335
+            set gamemode of all players to spectator
+            wait 1 tick
+            set gamemode of {바닥지우기게임참가자::*} to survival
+            apply potion of slow falling of tier 1 without particles to {바닥지우기게임참가자::*} for 5 seconds
+            set {바닥지우기게임중} to true
+            loop {바닥지우기게임참가자::*}:
+                add loop-value to {바닥지우기생존자::*}
+
+command z바닥지우기종료:
+    trigger:
+        if player is op:
+            delete {바닥지우기게임참가자::*}
+            delete {바닥지우기생존자::*}
+            delete {바닥지우기게임중}
+            console command "fill 4617 431 -2301 4553 431 -2365 stone replace air"
+            console command "fill 4617 414 -2301 4553 414 -2365 stone replace air"
+            console command "fill 4617 397 -2301 4553 397 -2365 stone replace air"
+            console command "fill 4617 431 -2301 4553 431 -2365 stone replace cobblestone"
+            console command "fill 4617 414 -2301 4553 414 -2365 stone replace cobblestone"
+            console command "fill 4617 397 -2301 4553 397 -2365 stone replace cobblestone"
+
+command z미니게임초기화:
+    trigger:
+        if player is op:
+            delete {바닥지우기게임참가자::*}
+            delete {바닥지우기생존자::*}
+            delete {바닥지우기게임중}
+            delete {미니겜레드팀::*}
+            delete {미니겜블루팀::*}
+            delete {점프맵성공::*}
+            delete {얼음레이스통과자::*}
+            delete {얼음레이스중}
+
+command z미니게임팀만빼고초기화:
+    trigger:
+        if player is op:
+            delete {바닥지우기게임참가자::*}
+            delete {바닥지우기생존자::*}
+            delete {바닥지우기게임중}
+            delete {점프맵성공::*}
+            delete {얼음레이스통과자::*}
+            delete {얼음레이스중}
+
+command z얼음레이스장소이동:
+    trigger:
+        if player is op:
+            teleport all players to location at 4409, 95, -2098 in world "world"
+
+command 얼음레이스참가:
+    trigger:
+        teleport player to location at 4458, 64, -2141 in world "world"
+
+command z얼음레이스종료:
+    trigger:
+        if player is op:
+            delete {얼음레이스통과자::*}
+            delete {얼음레이스중}
+            teleport all players to location at 4409, 95, -2098 in world "world"
+
+command z얼음레이스시작:
+    trigger:
+        if player is op:
+            delete {얼음레이스통과자::*}
+            delete {얼음레이스중}
+            console command "fill 4451 63 -2136 4451 63 -2146 sandstone"
+            play sound "minecraft:block.note_block.bit" with volume 100 to all players
+            send title "&c3" to all players for 21 tick
+            wait 1 second
+            play sound "minecraft:block.note_block.bit" with volume 100 to all players
+            send title "&c2" to all players for 21 tick
+            wait 1 second
+            play sound "minecraft:block.note_block.bit" with volume 100 to all players
+            send title "&c1" to all players for 21 tick
+            wait 1 second
+            send title "&a시작" to all players for 21 tick
+            console command "fill 4451 63 -2136 4451 63 -2146 air"
+            set {얼음레이스중} to true
+            loop 4 times:
+                play sound "minecraft:block.note_block.harp" to all players
+                wait 2 tick
+                play sound "minecraft:block.note_block.chime" to all players
+            wait 1 tick
+            play sound "minecraft:block.note_block.harp" to all players
+
+every 1 tick:
+    if {얼음레이스중} is true:
+        loop all players:
+            if x-coord of loop-player is between 4462 and 4463:
+                if y-coord of loop-player is between 61 and 63:
+                    if z-coord of loop-player is between -2136 and -2146:
+                        if {얼음레이스통과자::*} does not contain loop-player:
+                            add loop-player to {얼음레이스통과자::*}
+                            if {미니겜레드팀::*} contain loop-player:
+                                send "&e%loop-player%번&c(레드팀)&e님이 결승선을 통과하셨습니다" to all players
+                            if {미니겜블루팀::*} contain loop-player:
+                                send "&e%loop-player%번&9(블루팀)&e님이 결승선을 통과하셨습니다" to all players
+every 15 tick:
+    if {바닥지우기게임중} is true:
+        loop {바닥지우기생존자::*}:
+            set {_loc} to location of loop-value
+            subtract 1 from y-coordinate of {_loc}
+            set {_block} to block at {_loc}
+            if block at {_loc} is stone:
+                set block at {_loc} to air
+
+every 5 tick:
+    loop all players:
+        if x-coord of loop-player is between 4668 and 4703:
+            if y-coord of loop-player is 461:
+                if z-coord of loop-player is between -1944 and -1970:
+                    if {점프맵성공::*} does not contain loop-player:
+                        add loop-player to {점프맵성공::*}
+                        if {미니겜레드팀::*} contain loop-player:
+                            send "&e%loop-player%번&c(레드팀)&e님이 점프맵을 통과하셨습니다" to all players
+                        if {미니겜블루팀::*} contain loop-player:
+                            send "&e%loop-player%번&9(블루팀)&e님이 점프맵을 통과하셨습니다" to all players
+
+command z점프맵성공리스트:
+    trigger:
+        if player is op:
+            send "점프맵 성공 : %{점프맵성공::*}%" to player
+
+command z점프맵성공리스트초기화:
+    trigger:
+        if player is op:
+            delete {점프맵성공::*}
+
+every 5 tick:
+    if {바닥지우기게임중} is true:
+        loop {바닥지우기생존자::*}:
+            if x-coord of loop-value is between 4620 and 4550:
+                if y-coord of loop-value is between 388 and 390:
+                    if z-coord of loop-value is between -2298 and -2368:
+                        remove loop-value from {바닥지우기생존자::*}
+                        send "&c%loop-value%번님이 탈락했습니다" to all players
+                        teleport loop-value to location at 4570, 400, -2300 in world "world"
+                        if size of {바닥지우기생존자::*} is 1:
+                            add {바닥지우기생존자::*} to {_바닥지우기우승자::*}
+                            if {미니겜레드팀::*} contain {_바닥지우기우승자::*}:
+                                send "&e%{_바닥지우기우승자::*}%번&c(레드팀)&e님이 승리하였습니다" to all players
+                                teleport {_바닥지우기우승자::*} to location at 4570, 400, -2300 in world "world"
+                            if {미니겜블루팀::*} contain {_바닥지우기우승자::*}:
+                                send "&e%{_바닥지우기우승자::*}%번&9(블루팀)&e님이 승리하였습니다" to all players
+                                teleport {_바닥지우기우승자::*} to location at 4570, 400, -2300 in world "world"
+                            delete {바닥지우기게임참가자::*}
+                            delete {바닥지우기생존자::*}
+                            delete {바닥지우기게임중}
+
+on damage:
+    if victim is player:
+        if {바닥지우기게임중} is true:
+            cancel event
+
+command z바닥지우기장소이동:
+    trigger:
+        if player is op:
+            teleport all players to location at 4535, 379, -2345 in world "world"
+
+command z점프맵장소이동:
+    trigger:
+        if player is op:
+            teleport all players to location at 4595, 376, -1983 in world "world"
+
+command 점프맵장소이동:
+    trigger:
+        teleport player to location at 4595, 376, -1983 in world "world"
+
+command z닉네임확인 [<player>]:
+    trigger:
+        if player is op:
+            send "%arg-player%번님의 숲아이디 : %{숲아이디::%uuid of arg-player%}%" to player
+            send "%arg-player%번님의 숲아이디 : %{숲아이디::%uuid of arg-player%}%" to console
+
+on explosion:
+    if x-coord of event-location is between 4496 and 4688:
+        if y-coord of event-location is between 250 and 550:
+            if z-coord of event-location is between -2256 and -2416:
+                cancel event
+    if x-coord of event-location is between 2820 and 2950:
+        if y-coord of event-location is between 70 and 140:
+            if z-coord of event-location is between 297 and 413:
+                cancel event
+    if x-coord of event-location is between 3008 and 3424:
+        if z-coord of event-location is between 176 and 816:
+            cancel event
+    if x-coord of event-location is between 4575 and 4780:
+        if y-coord of event-location is between 350 and 590:
+            if z-coord of event-location is between -1888 and -2075:
+                cancel event
+
+on damage:
+    if x-coord of victim is between 4575 and 4780:
+        if y-coord of victim is between 350 and 590:
+            if z-coord of victim is between -1888 and -2075:
+                cancel event
+
+command z반지:
+    trigger:
+        if player is op:
+            give itemsadder item "ab:ringred" named "&f개꿀빠는 우정반지" to player
+            give itemsadder item "ab:ringblack" named "&f개고생하는 우정반지" to player
+            
+            give itemsadder item "ab:ringorange" named "&f쾌변하는 우정반지" to player
+            give itemsadder item "ab:ringwhite" named "&f변비 우정반지" to player
+            
+            give itemsadder item "ab:ringyellow" named "&f감다뒤 우정반지" to player
+            give itemsadder item "ab:ringlightblue" named "&f감다살 우정반지" to player
+            
+            give itemsadder item "ab:ringlime" named "&f후라이드치킨 우정반지" to player
+            give itemsadder item "ab:ringpink" named "&f양념치킨 우정반지" to player
+            
+            give itemsadder item "ab:ringblue" named "&f강아지 우정반지" to player
+            give itemsadder item "ab:ringlime" named "&f고양이 우정반지" to player
+            
+            give itemsadder item "ab:ringlightblue" named "&f인싸 우정반지" to player
+            give itemsadder item "ab:ringred" named "&f아싸 우정반지" to player
+            
+            give itemsadder item "ab:ringpurple" named "&f집순이 우정반지" to player
+            give itemsadder item "ab:ringorange" named "&f집돌이 우정반지" to player
+            
+            give itemsadder item "ab:ringwhite" named "&f매운맛 우정반지" to player
+            give itemsadder item "ab:ringblue" named "&f착한맛 우정반지" to player
+            
+            give itemsadder item "ab:ringblack" named "&f고백 우정반지" to player
+            give itemsadder item "ab:ringyellow" named "&f차임 우정반지" to player
+            
+            give itemsadder item "ab:ringpink" named "&fㅋㅋㅋ 우정반지" to player
+            give itemsadder item "ab:ringpurple" named "&fㅠㅠㅠ 우정반지" to player
+
+            give itemsadder item "ab:ringred" named "&f루비" to player
+            give itemsadder item "ab:ringorange" named "&f토파즈" to player
+            give itemsadder item "ab:ringyellow" named "&f사파이어" to player
+            give itemsadder item "ab:ringlime" named "&f에메랄드" to player
+            give itemsadder item "ab:ringblue" named "&f다이아몬드" to player
+            give itemsadder item "ab:ringlightblue" named "&f문스톤" to player
+            give itemsadder item "ab:ringpurple" named "&f자수정" to player
+            give itemsadder item "ab:ringwhite" named "&f오팔" to player
+            give itemsadder item "ab:ringblack" named "&f흑요석" to player
+            give itemsadder item "ab:ringpink" named "&f가넷" to player
+
+command z가방:
+    trigger:
+        if player is op:
+            give itemsadder item "ab:bag" to player
+            give itemsadder item "ab:bagblue" to player
+            give itemsadder item "ab:greenbag" to player
+            give itemsadder item "ab:orangebag" to player
+            give itemsadder item "ab:purplebag" to player
+            give itemsadder item "ab:redbag" to player
+            give itemsadder item "ab:skybluebag" to player
+            give itemsadder item "ab:yellowbag" to player
+
+command z인벤토리열기 <player>:
+	trigger:
+		if player is op:
+			open the arg 1's inventory for the player
+
+command 도움:
+    trigger:
+        send "%nl%%player% 님이 도움을 요청했습니다%nl%" to {관리자::*}
+
+command /msg [<player>] [<text>]:
+	aliases: /message, /귓속말
+	trigger:
+		if arg-1 is not set:
+			send " 사용법 : &b/msg <플레이어> <메세지>" to player
+			stop
+		if arg-2 is not set:
+			send "사용법 : &b/msg <플레이어> <메세지>" to player
+			stop
+		if arg-1 is set:
+			if arg-2 is set:
+				send "&bFrom: &a%player%&r &7> &6%arg 2%" to arg 1
+				send "&bTo: &a%arg 1%&r &7> &6%arg 2%" to player
+				play sound "entity.experience_orb.pickup" to player
+
+on damage:
+    if x-coord of victim is 2835.5:
+        if y-coord of victim is between 79 and 80:
+            if z-coord of victim is 347.5:
+                cancel event
+
+on rightclick on barrier:
+    if x-coord of event-block is 2835.5:
+        if y-coord of event-block is 79.5 or 80.5:
+            if z-coord of event-block is 347.5:
+                open chest with 6 rows named "&e우편함" to player
+                wait 1 tick
+                set {_postinv} to 0
+                loop {post.%uuid of player%::*}:
+                    set slot {_postinv} of current inventory of player to loop-value
+                    add 1 to {_postinv}
+
+command z스킨 [<player>]:
+    trigger:
+        set skin of arg-1 to skin of "_glape"
+
+on place:
+    if x-coord of event-block is between 2882 and 2886:
+        if y-coord of event-block is between 78 and 85:
+            if z-coord of event-block is between 342 and 345:
+                cancel event
+
+on break:
+    if x-coord of event-block is between 2882 and 2886:
+        if y-coord of event-block is between 77 and 82:
+            if z-coord of event-block is between 340 and 346:
+                cancel event
+                if event-block is reinforced deepslate:
+                    if player's tool is air:
+                        if {감옥수감유무::%uuid of player%} is true:
+                            add 1 to {감옥수감카운트::%uuid of player%}
+                            if {감옥수감카운트::%uuid of player%} >= 5:
+                                send "%nl%&7&l<&e &l공지 &7&l> &r&e%player%번님이 석방 되셨습니다%nl%" to all players
+                                delete {감옥수감유무::%uuid of player%}
+                                delete {감옥수감카운트::%uuid of player%}
+                                set {_randomtp} to random integer between 1 and 4
+                                if {_randomtp} is 1:
+                                    teleport player to location at 2885.5, 80, 373.5 in world "world"
+                                if {_randomtp} is 2:
+                                    teleport player to location at 2860.5, 80, 400.5 in world "world"
+                                if {_randomtp} is 3:
+                                    teleport player to location at 2835.5, 80, 373.5 in world "world"
+                                if {_randomtp} is 4:
+                                    teleport player to location at 2860.5, 80, 350.5 in world "world"
+                                wait 3 tick
+                                play sound "entity.player.levelup" to player
+                            else if {감옥수감카운트::%uuid of player%} < 5:
+                                play sound "entity.experience_orb.pickup" to player
+                                send "&e석방까지 채굴 %5-{감옥수감카운트::%uuid of player%}%번 남으셨습니다" to player
+                    else if player's tool is not air:
+                        send "&e맨손으로 블럭을 캐지않아 카운트되지 않았습니다" to player
+                        play sound "entity.enderman.teleport" to player
+
+command z감옥수감 [<player>] [<player>]:
+    trigger:
+        if player is op:
+            teleport arg-2 to location at 2883.5, 80, 344.5 in world "world"
+            set {감옥수감유무::%uuid of arg-2%} to true
+            send "%nl%&7&l<&e &l공지 &7&l> &r&e%arg-1%번님이 %arg-2%번님을 수감 시켰습니다.%nl%" to all players
+            send "&e감옥에 수감되셨습니다. 탈출하려면 감옥 중간에 있는 보강된 심층암을 '맨손'으로 5회 채굴해야합니다.%nl%&7맨손으로 채굴하지 않으면 횟수가 카운트되지 않습니다." to arg-2
+
+command z감옥석방 [<player>]:
+    trigger:
+        if player is op:
+            send "%nl%&7&l<&e &l공지 &7&l> &r&e%arg-player%번님이 석방 되셨습니다%nl%" to all players
+            delete {감옥수감유무::%uuid of arg-player%}
+            delete {감옥수감카운트::%uuid of arg-player%}
+            set {_randomtp} to random integer between 1 and 4
+            if {_randomtp} is 1:
+                teleport arg-player to location at 2885.5, 80, 373.5 in world "world"
+            if {_randomtp} is 2:
+                teleport arg-player to location at 2860.5, 80, 400.5 in world "world"
+            if {_randomtp} is 3:
+                teleport arg-player to location at 2835.5, 80, 373.5 in world "world"
+            if {_randomtp} is 4:
+                teleport arg-player to location at 2860.5, 80, 350.5 in world "world"
+            wait 3 tick
+            play sound "entity.player.levelup" to arg-player
+
+command z감옥수감자:
+    trigger:
+        if player is op:
+            loop all players:
+                if {감옥수감유무::%uuid of loop-player%} is true:
+                    send "감옥수감자 : %loop-player%" to player
+
+on damage:
+    if {감옥수감유무::%uuid of victim%} is true:
+        cancel event
+
+on death of player:
+    wait 20 tick
+    if {감옥수감유무::%uuid of victim%} is true:
+        teleport victim to location at 2883.5, 80, 344.5 in world "world"
+    else:
+        if {홈::%uuid of victim%} is set:
+            teleport victim to {홈::%uuid of victim%}
+        else:
+            teleport victim to location at 2845.5, 67, 267.5 in world "world"
+
+on rightclick on any bed:
+    set {홈::%uuid of player%} to location of event-block
+
+command z스킨전체:
+    trigger:
+        set skin of {관리자제외전체인원::*} to skin of "_glape"
+
+command 리스폰초기화:
+    trigger:
+        delete {홈::%uuid of player%}
+        send "&e리스폰지역이 초기화되었습니다.&7(죽으면 스폰으로 이동함)" to player
+        play sound "entity.experience_orb.pickup" to player
+
+command z전체채팅0초:
+    trigger:
+        if player is op:
+            loop all players:
+                set {c.e::%loop-player's uuid%} to 0
+
+every 10 tick:
+    loop all phantoms:
+        kill the loop-entity
+        wait 1 tick
+        console command "stopsound @a * minecraft:entity.phantom.death"
+
+every 19 tick:
+    if {퍼지데이} is true:
+        loop all players:
+            if {퍼지데이참가자::*} contain loop-player:
+                apply potion of glowing of tier 1 without particles to loop-player for 20 tick
+
+command 퍼지데이참가:
+    trigger:
+        add player to {퍼지데이참가자::*}
+        send "&f[&4퍼지데이&f] &e퍼지데이에 참가했습니다" to player
+
+command z퍼지데이시작:
+    trigger:
+        if player is op:
+            send "&f[&4퍼지데이&f] &45초후 퍼지데이가 시작됩니다" to all players
+            play sound "entity.zombie.attack_wooden_door" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &44초후 퍼지데이가 시작됩니다" to all players
+            play sound "entity.zombie.attack_wooden_door" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &43초후 퍼지데이가 시작됩니다" to all players
+            play sound "entity.zombie.attack_wooden_door" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &42초후 퍼지데이가 시작됩니다" to all players
+            play sound "entity.zombie.attack_wooden_door" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &41초후 퍼지데이가 시작됩니다" to all players
+            play sound "entity.zombie.attack_wooden_door" to all players
+            wait 1 second
+            send title "&4퍼지데이 시작" to all players for 3 second
+            play sound "entity.wither.spawn" to all players
+            set {퍼지데이} to true
+
+command z퍼지데이종료:
+    trigger:
+        if player is op:
+            send "&f[&4퍼지데이&f] &45초후 퍼지데이가 종료됩니다" to all players
+            play sound "entity.experience_orb.pickup" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &44초후 퍼지데이가 종료됩니다" to all players
+            play sound "entity.experience_orb.pickup" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &43초후 퍼지데이가 종료됩니다" to all players
+            play sound "entity.experience_orb.pickup" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &42초후 퍼지데이가 종료됩니다" to all players
+            play sound "entity.experience_orb.pickup" to all players
+            wait 1 second
+            send "&f[&4퍼지데이&f] &41초후 퍼지데이가 종료됩니다" to all players
+            play sound "entity.experience_orb.pickup" to all players
+            wait 1 second
+            send title "&4퍼지데이 종료" to all players for 3 second
+            play sound "entity.player.levelup" with pitch 2 to all players
+            delete {퍼지데이}
+            delete {퍼지데이참가자::*}
+
+on rightclick:
+    if name of player's held item is "&f호감도":
+        open chest with 6 rows named "호감도 (호감도를 변경할 사람을 선택해주세요)" to player
+        play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+        set {_slot} to 0
+        loop {관리자제외전체인원::*}:
+            set {_head} to skull of loop-value
+            set name of {_head} to "&f%loop-value%"
+            set slot {_slot} of player's current inventory to {_head}
+            add 1 to {_slot}
+
+#on rightclick on player:
+#    if name of player's held item is "&f호감도":
+#        if player's target is set:
+#            set {호감도타겟::%uuid of player%} to player's target
+#            set {호감도창염::%uuid of player%} to true
+#            open chest with 4 rows named "%player's target%번 호감도 올리기/내리기" to player
+#            set slot 13 of current inventory of player to itemsadder item "ab:up" named "&a호감도올리기"
+#            set slot 22 of current inventory of player to itemsadder item "ab:down" named "&c호감도내리기"
+
+on inventory click:
+    if inventory name is "호감도 (호감도를 변경할 사람을 선택해주세요)":
+        cancel event
+        if event-item is not air:
+            loop all players:
+                if event-item's name is "&f%name of loop-player%":
+                    if loop-player is not player:
+                        set {호감도타겟::%uuid of player%} to loop-player
+                        open chest with 4 rows named "%{호감도타겟::%uuid of player%}%번 호감도 올리기/내리기" to player
+                        set slot 13 of current inventory of player to itemsadder item "ab:up" named "&a호감도올리기"
+                        set slot 22 of current inventory of player to itemsadder item "ab:down" named "&c호감도내리기"
+                    else:
+                        send "&c본인에게는 투표할 수 없습니다" to player
+    if inventory name contain "번 호감도 올리기/내리기":
+        cancel event
+        if clicked slot is 13:
+            send "&e%{호감도타겟::%uuid of player%}%번님의 호감도를 올렸습니다" to player
+            send "&e%player%번님이 당신의 호감도를 올렸습니다" to {호감도타겟::%uuid of player%}
+            play sound "entity.experience_orb.pickup" to player
+            play sound "entity.experience_orb.pickup" to {호감도타겟::%uuid of player%}
+            add 1 to {호감도::%uuid of {호감도타겟::%uuid of player%}%}
+            remove itemsadder item "ab:hogam" from player's held item
+            close player's inventory
+        if clicked slot is 22:
+            send "&e%{호감도타겟::%uuid of player%}%번님의 호감도를 내렸습니다" to player
+            send "&e%player%번님이 당신의 호감도를 내렸습니다" to {호감도타겟::%uuid of player%}
+            remove 1 from {호감도::%uuid of {호감도타겟::%uuid of player%}%}
+            remove itemsadder item "ab:hogam" from player's held item
+            play sound "entity.experience_orb.pickup" to player
+            play sound "entity.experience_orb.pickup" to {호감도타겟::%uuid of player%}
+            close player's inventory
+
+on join:
+    wait 20 tick
+    if {출첵::%uuid of player%} is not true:
+        add itemsadder item "ab:hogam" to {post.%uuid of player%::*}
+        set {출첵::%uuid of player%} to true
+        send "%nl%&e우편함에 &c'호감도' &e아이템이 지급되었습니다%nl%" to player
+
+command z호감도확인 [<player>]:
+    trigger:
+        if player is op:
+            send "%arg-player%님의 호감도 : %{호감도::%uuid of arg-player%}%" to player
+
+command z호감도설정 [<player>] [<integer>]:
+    trigger:
+        if player is op:
+            set {호감도::%uuid of arg-player%} to arg-integer
+            send "%arg-player%님의 호감도를 %arg-integer%로 설정했습니다" to player
+            send "%arg-player%님의 호감도 : %{호감도::%uuid of arg-player%}%" to player
+
+every 19 tick:
+    loop all players:
+        if "%{호감도::%uuid of loop-player%}%" contain "-":
+            apply potion of slowness of tier 2 without particles to loop-player for 1 second
+
+command 벌금제출 [<integer>]:
+    trigger:
+        set {_ma} to arg-integer*7
+        set {_da} to amount of diamond in inventory of player
+        if "%{호감도::%uuid of player%}%" contain "-":
+            if {호감도::%uuid of player%}+arg-integer <= 0:
+                if {_ma} <= {_da}:
+                    add arg-integer to {호감도::%uuid of player%}
+                    remove {_ma} of diamond from player
+                    send "&b다이아몬드 &e%{_ma}%개를 반납하여 호감도 %arg-integer%을(를) 올렸습니다" to player
+                    play sound "entity.experience_orb.pickup" to player
+                else:
+                    send "&c호감도 %arg-integer%을(를) 올리기 위해서는 다이아몬드 %{_ma}%개 이상 필요합니다" to player
+                    play sound "entity.enderman.teleport" to player
+            else:
+                send "&c호감도를 %arg-integer%만큼 올리면 당신의 호감도가 0이 넘어가기 때문에 사용할 수 없습니다" to player
+        else:
+            send "&c벌금을 제출하여 호감도를 올릴때는 당신의 호감도가 마이너스 여야합니다" to player
+
+command z출첵초기화 [<player>]:
+    trigger:
+        if player is op:
+            send "%arg-player%님의 출첵여부를 초기화하였습니다" to player
+            delete {출첵::%uuid of arg-player%}
+
+on rightclick:
+    if name of player's held item is "&f강제결혼권":
+        if {결혼사용쿨타임::%uuid of player%} is not true:
+            set {결혼창염::%uuid of player%} to true
+            open chest with 6 rows named "강제결혼 (강제결혼 시킬 대상을 선택해주세요)" to player
+            play sound "minecraft:entity.experience_orb.pickup" with volume 1 to player
+            set {_slot} to 0
+            loop {관리자제외전체인원::*}:
+                set {_head} to skull of loop-value
+                set name of {_head} to "&f%loop-value%"
+                set slot {_slot} of player's current inventory to {_head}
+                add 1 to {_slot}
+            set slot 49 of current inventory of player to itemsadder item "ab:hogam" named "&c결혼시키기"
+        else:
+            send "&c현재는 강제결혼권을 사용할 수 없습니다(15분쿨타임)" to player
+
+on inventory close:
+    if {결혼창염::%uuid of player%} is true:
+        delete {결혼창염::%uuid of player%}
+        delete {강제결혼권1%uuid of player%::*}
+
+on inventory click:
+    if inventory name is "강제결혼 (강제결혼 시킬 대상을 선택해주세요)":
+        cancel event
+        if event-item is not air:
+            if clicked slot is not 49:
+                loop all players:
+                    if event-item's name is "&f%name of loop-player%":
+                        play sound "entity.experience_orb.pickup" to player
+                        if {강제결혼권1%uuid of player%::*} does not contain loop-player:
+                            if size of {강제결혼권1%uuid of player%::*} < 2:
+                                if {강제결혼권1%uuid of player%::1} is not set:
+                                    set {강제결혼권1%uuid of player%::1} to loop-player
+                                    send "&e신랑을 %loop-player%번님으로 설정하였습니다" to player
+                                else:
+                                    set {강제결혼권1%uuid of player%::2} to loop-player
+                                    send "&e신부를 %loop-player%번님으로 설정하였습니다" to player
+                            else:
+                                send "&c결혼 대상은 최대 2명까지만 설정할 수 있습니다" to player
+                        else:
+                            send "&e%loop-player%번님을 결혼대상에서 제거했습니다" to player
+                            remove loop-player from {강제결혼권1%uuid of player%::*}
+            else if clicked slot is 49:
+                if size of {강제결혼권1%uuid of player%::*} = 2:
+                    send "%nl%&f[&a결혼&f] &e(%player%번이 결혼권 사용) 신랑 %{강제결혼권1%uuid of player%::1}%번과 신부 %{강제결혼권1%uuid of player%::2}%번이 결혼했습니다. 이 둘은 15분동안 멀어질 수 없습니다.%nl%" to all players
+                    play sound "entity.player.levelup" to all players
+                    add {강제결혼권1%uuid of player%::1} to {결혼시킴%uuid of player%::*}
+                    add {강제결혼권1%uuid of player%::2} to {결혼시킴%uuid of player%::*}
+                    remove itemsadder item "ab:gangjae" from player's held item
+                    delete {결혼창염::%uuid of player%}
+                    set {결혼사용쿨타임::%uuid of player%} to true
+                    wait 1 tick
+                    close player's inventory
+                    wait 900 second
+                    send "&e15분이 지나 %{결혼시킴%uuid of player%::1}%번님과 이혼하였습니다" to {결혼시킴%uuid of player%::2}
+                    send "&e15분이 지나 %{결혼시킴%uuid of player%::2}%번님과 이혼하였습니다" to {결혼시킴%uuid of player%::1}
+                    play sound "entity.experience_orb.pickup" to {결혼시킴%uuid of player%::*}
+                    delete {결혼시킴%uuid of player%::*}
+                    delete {강제결혼권1%uuid of player%::*}
+                    delete {결혼사용쿨타임::%uuid of player%}
+                else:
+                    send "&c결혼 대상은 2명 이여야 합니다" to player
+                    play sound "entity.enderman.teleport" to player
+
+command z결혼쿨타임초기화 [<player>]:
+    trigger:
+        if player is op:
+            delete {결혼사용쿨타임::%uuid of arg-player%}
+            send "%arg-player%님의 결혼 쿨타임을 초기화했습니다" to player
+
+every 1 second:
+    loop all players:
+        if {결혼시킴%uuid of loop-player%::*} is set:
+            set {_g1%uuid of loop-player%} to {결혼시킴%uuid of loop-player%::1}
+            set {_g2%uuid of loop-player%} to {결혼시킴%uuid of loop-player%::2}
+            set {_distance} to distance between location of {_g1%uuid of loop-player%} and location of {_g2%uuid of loop-player%}
+            if {_distance} > 10:
+                teleport {_g2%uuid of loop-player%} to {_g1%uuid of loop-player%}
+
+command z강제결혼초기화:
+    trigger:
+        if player is op:
+            loop all players:
+                delete {결혼시킴%uuid of loop-player%::*}
+                delete {강제결혼권1%uuid of loop-player%::*}
+
+command z죽인횟수확인:
+    trigger:
+        if player is op:
+            send "" to player
+            loop {관리자제외전체인원::*}:
+                send "%loop-value%님의 죽인횟수 : %{죽인횟수::%uuid of loop-value%}%" to player
+            send "" to player
+
+command z죽은횟수확인:
+    trigger:
+        if player is op:
+            send "" to player
+            loop {관리자제외전체인원::*}:
+                send "%loop-value%님의 죽은횟수 : %{죽은횟수::%uuid of loop-value%}%" to player
+            send "" to player
+
+command z관리자채팅 [<text>]:
+    trigger:
+        if player is op:
+            if arg-text is set:
+                send "&f[관리자채팅] <%player%> &7: &f%arg-text%" to {관리자::*}
+
+command z번호확인:
+    trigger:
+        if player is op:
+            send "%player's target%님의 번호 : %{번호::%uuid of player's target%}%" to player
+
+command z아이템이름 [<text>]:
+    trigger:
+        if player is op:
+            set name of player's tool to "&f%arg-text%"
+
+command zbgm:
+    trigger:
+        if player is op:
+            play sound "music_disc.otherside" to all players
+
+on player's held item change:
+    if {카드타이틀로확인::%player%} is true:
+        delete {카드타이틀로확인::%player%}
+        set slot 36 of player's inventory to air
+
+on rightclick with iron ingot:
+    if name of player's held item contain "색 쪽지":
+        if {카드타이틀로확인::%uuid of player%} is not true:
+            set {카드타이틀로확인::%uuid of player%} to true
+            console command "item replace entity %uuid of player% armor.feet with light_gray_stained_glass_pane[equippable={slot:""feet"",camera_overlay:""misc/il""}]"
+            wait 1 tick
+            set name of slot 36 of player's inventory to " "
+        else if {카드타이틀로확인::%uuid of player%} is true:
+            delete {카드타이틀로확인::%uuid of player%}
+            set slot 36 of player's inventory to air
+
+on inventory click:
+    if clicked inventory is player's inventory:
+        if clicked slot is 36:
+            if event-item is light gray stained glass pane:
+                cancel event
+
+on rightclick on entity:
+    if name of event-entity is "&fasdf1234567":
+        cancel event
+        if {상자염} is not true:
+            set {상자염} to true
+            wait 1 tick
+            drop paper named "&6100만원" at event-location
+
+command z상자연사람초기화:
+    trigger:
+        if player is op:
+            delete {상자염}

@@ -1,0 +1,137 @@
+last-created-npc-id: 9
+npc:
+  '6':
+    metadata:
+      cached-skin-uuid-name: 9fc8cfe2-ac12-40a4-8a5e-f2cc77409581
+    name: 초대권상점
+    uuid: dc0527a0-a77e-481b-8f69-c11041468bfa
+    traits:
+      type: PLAYER
+      location:
+        bodyYaw: 91.39615
+        world: world
+        x: 2929.6187
+        y: 78.0
+        z: 308.508
+        yaw: 91.3961
+        pitch: 0.0
+      owner:
+        uuid: 76cdc947-3598-4f9c-9b9c-c44f7dfd05b5
+      skintrait:
+        signature: t71Uuo/nHjTUDwcnR8GCfavgiYDNvmNnj78QpzYp9tBnp8eKobS7shS2yF4Rchr5dCLON3lbreUDItXxyd1rzfagtoncJZ9aCIqK9VHtZUVIOeIwiSEgJcUw+oi5lDWn9yxn0/cwyhCfxLrOiLqX4cVuXjwISu6JXiz7+kTYOi+fCO2FfEQod0E6G+I93yT9QgckYoBHuHMsRvuyHbqtFc9kw8R3KAYjKz79nJflAeg8ARcbGIiAtQtc/tkXTMjilLWDKVJdeGGFg+KVLQo4nGKKkhMeukJlMx5A2WzyB0f58fisuxWMuUk4XfveUVcvxLxz3MyIoqqOlYIPbzq0heUeHWIN05MHkMgu20gCNNcyDkaRu8p8KmZ/Wp9fEewHSVqxmhLNuoe7GP/rnZ9KiWxHmQmtvgo6w5x61vYSgZlPyPboTLZ0y4xnuJ0L7ZLWFGDSt+lx7RCWLqh9scIjaiehvpmrq2Fofj96+/hi6oXRepj5kGhywnitckG9F+lUFl5QmKHXlggy6krOlCTHIMY5pIlRnoLd10fT9IgzQgIl5O9rLvdtYkikeMJ36SeoZAMZI0paneljbQb/34VorJazXQ0tv/hk3TrLX61aBi4J1iymH+7TU3pIKTktQDPcEqSgBsPnhBJvfHtSQLubAiEQUH/Cf6CnSU/fJRQfTYE=
+        skinName: 9fc8cfe2-ac12-40a4-8a5e-f2cc77409581
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYyOTU4MjQ3MTM1NSwKICAicHJvZmlsZUlkIiA6ICI1ZjE4ZmY4NTEyZGQ0NmQ1OGY1MjJlYjg2MDg2ZjU5MiIsCiAgInByb2ZpbGVOYW1lIiA6ICJUYWtlb3MiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTlmNzE4NTlkNmY4YWNkMzQ4NzI4MzJjMjkxMWE1NTI4NDllY2E4ZjgwZGM1MDVmZWIwYWEyNWIyOTljODc3YSIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9
+      spawned: true
+    traitnames: owner,scoreboardtrait,skintrait,spawned,inventory,type,targetable,location
+    navigator:
+      speedmodifier: 4.0
+      avoidwater: false
+      usedefaultstuckaction: false
+  '8':
+    metadata:
+      cached-skin-uuid-name: 7c575140-f6d4-4526-9d09-cf4fe09f1157
+    name: 편지상점
+    uuid: 17f04b93-ea23-4eb5-805c-80813e3f2111
+    traits:
+      type: PLAYER
+      location:
+        bodyYaw: 89.94476
+        world: world
+        x: 2929.5084
+        y: 78.0
+        z: 320.5017
+        yaw: 89.9448
+        pitch: 0.0
+      owner:
+        uuid: 76cdc947-3598-4f9c-9b9c-c44f7dfd05b5
+      skintrait:
+        signature: ibQPvsdytw3cI9PT90Xsu+qXQrLRj+bq/P/y8QeBsqJv5vasbx9IRhXLK5nYpjoIpjyWq0YWfTCAM1RpMmIU8GYVCSCSkeD614V3wz/M9wJl/pZx2yZidDvfzOaYjWt9a9AHQpDaA3gRMg8uAFOp37+RNOP9PEhBw7rqNT0EJ3QEp/TQ/Wrziy9fIOk+e21OZkg4NTb1p+Gdzeh99oo4tKxlCRzn6fmDZu6cNjUdrifeSoxtM8czsR8o1m9ayCLa31bcUYg2ixqr9Ws/olbOaZGRwn91PZXL9dd0Kui7rbd6PBaULG7MYoKoSvM7fyFt9gqhfzCBobPCu3SoRVCTu5yJUGdJBPkpM0ekdxwxM9RZ8+fuOTZJomXuIompX3Ub5DotTOcKqUD1+Svja3ygxA3qbVbVOszhtMoKZXlqGSbrygxsJEJQAmMZMQINOUnSSrU9hFSMVufF8JdvM20gyAYa3dshr5MEVW8QbX2CEQaAQKZUEr9E9/gaiK18aW7uacvppLgIj+STrm/0Qki1IxgywA4yszditfWxDYN4M2RSeMcqoZvMnrDFvYbODO47PPXs4D3IIakUr7lkZWgD0NV6icuwUp8QFLM/uvTbKsHRuZll4jiNHw0SL8GO/htxFHMtDBPKwEH1cGBUUb3WTuKl0lBKEOd3k1jdaF+lke4=
+        skinName: 7c575140-f6d4-4526-9d09-cf4fe09f1157
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTcyOTc3MDA5NjE5OCwKICAicHJvZmlsZUlkIiA6ICIxMTM1Njg1ZTk3ZGE0ZjYyYTliNDQ3MzA0NGFiZjQ0MSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNYXJpb1dsZXMiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTQzOTQyYzI2Mzg3ZTk2ZjQyZjc1NTE4MzY5ZTUxNWY0YTAzNDBhMDRmODQxZmRiMWRlYzIwNGMxY2Y5NTVmYiIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9
+      spawned: true
+    traitnames: owner,scoreboardtrait,skintrait,spawned,inventory,type,targetable,location
+    navigator:
+      speedmodifier: 4.0
+      avoidwater: false
+      usedefaultstuckaction: false
+  '7':
+    metadata:
+      cached-skin-uuid-name: 175b970f-9742-4d52-8525-b4465223e07b
+    name: 자재상점
+    uuid: 70b321f1-6eae-459d-ad77-91847c24e4a3
+    traits:
+      type: PLAYER
+      location:
+        bodyYaw: 90.0
+        world: world
+        x: 2929.5
+        y: 78.0
+        z: 316.5
+        yaw: 90.0
+        pitch: 0.0
+      owner:
+        uuid: 76cdc947-3598-4f9c-9b9c-c44f7dfd05b5
+      skintrait:
+        signature: m/BSzmjK+dwLsw86Kd3MUqlnKrmzlGpuWvy7SvKES5bns4H2+r3A+wxxqsJpkH1XsNaCuVPquoA1ok469szaUM4MkqsechKvvUJGREqDcl+1yp8Ou3o/Xe33XMjiKVYxeMjvxQ8mcRENiZU0MHJ6X3shMOm+2itphKn3PRf0goFSUsaWeFXNpm6uyZ/w85HGVIt8ezUkYqJj8X5OlP7026q6R++dmCFwu+2MuzqG/Yw4GgbcS8JhT7YcWIGDFsgfs2/M8GJ5BoSdxrJDFU9jAz+jI3/MJ4OSBJfkleOErw4YMOdHJW0rN94pxFMS4FaCpdOcb9+0EvvBfTY8EWlA3zxwB+vB6dZfSKPKDemQpgVC3uthaJrPvqTE6n9HfBgnjxRF8mEKH0Crmp/gmNEXVKmiP1wwW/+sGGjEKOnEKjtuuYPAtm+NsrT+xphHGZVy0w9gFUnYalkHehRxNRi0/x3H+y8mhNrlNqMsIUvknXkS8Ztl5Z5Af5VqfjvU21mG9uoIukxMHc8Flxrt94sCTVayEycJp4S4xzk9WrGJu6ROm1HaeRSlkztRuijar2Z/fQgBcpkj5Bd/evynzG0fReyIQf1QQFj1vo577LrM7CJPr3AvcS5cK3Aj06x1s8+YRF6w243L6romqunjwMa6eiOTK0lg0/x8FWa7zMifrm4=
+        skinName: 175b970f-9742-4d52-8525-b4465223e07b
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTcwNDkwNzk1NjIxMiwKICAicHJvZmlsZUlkIiA6ICI0NTM1Y2RjNjk3NGU0Nzk4YjljYzY4ODlkZWY1MDk2NiIsCiAgInByb2ZpbGVOYW1lIiA6ICIzZXlyZW4iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGEzMWYzYjJhODZjY2ZkMGE1ZjkzMGY1MDU4MjQ3OWZiZDdhNDVjNjZhMDA3NzIxYjc0YzlhMzFiNTk5NTVjNSIKICAgIH0KICB9Cn0=
+      spawned: true
+    traitnames: owner,scoreboardtrait,skintrait,spawned,inventory,type,location
+    navigator:
+      speedmodifier: 1.0
+      avoidwater: false
+      usedefaultstuckaction: false
+  '5':
+    metadata:
+      cached-skin-uuid-name: 1235e2a7-1208-46b3-ba76-42d29c9d9146
+    name: 우체부
+    uuid: d5fd1436-3c16-442c-bc09-eb018e4428e2
+    traits:
+      type: PLAYER
+      location:
+        bodyYaw: 89.57486
+        world: world
+        x: 2929.5696
+        y: 78.0
+        z: 312.4995
+        yaw: 89.5749
+        pitch: 0.0
+      owner:
+        uuid: 76cdc947-3598-4f9c-9b9c-c44f7dfd05b5
+      skintrait:
+        signature: Z3TPL1G27QTOCG0KO+cqJhecN9gL0BLQJGuVJG74nmvfZxQan98DgC3g7LPS/wnBxxr8/UwUhLoqBOqLvgiwYop29j2HuhcmUC1qCL/U207l2PIO5huZMbXX7Wrmkq2Wag1m6cyW6sz8qgc5Bvh1EKmDIEksYDNQApb/8GEn85A7aDLO2VdhFM8bKjHF3xNI0rb3gXNacQOQNuWMBgSe5nkI4ckW2LiExAMXDmmyYPFBikeTicGZjyTxE1jZ87zI7/6MVpXkj9Yx/b3MBXSPCSAZA8L1KepVOegZxHLtxcldImDyz9Www3xlfuR/8VWAotQfSe+Q6ZZeeYPhnGQrUHe303K+ExAJnrbpX1cc4fHMPZCL/M/Juhj3fH/Mik7TBat5sRQzVjAAwno8Ipt0odrEAMoWDrnAbvvMA4SgwBCYNIilgcQaXhxQajUIOgXacbFBjBewDX4ORS33ZnWl+j4pvFxUHEetsW9y9+NcjHRMTIPeCs6VdiQRU6uA70t+9k/XmIl4B4Jp53aaCN2NXLv757pUAGfoxHoQqptQX5M2a6CXu/7s8U5FxwZ5oADejlf8zMOvZug7K+34d8nTW5hcyEJoBIY7qR9PGucBTvNK1cfZiRVj17Tdp71PHHf3szZER1mBR42qOV0+dRXblfIpNFS6O/01LdMbPz6W3nM=
+        skinName: 1235e2a7-1208-46b3-ba76-42d29c9d9146
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTcyOTQ3NDE2MjM3NiwKICAicHJvZmlsZUlkIiA6ICIwNDg0N2ZjNWM5YjY0NTQ1YjI1ZWJkYmJiNzdjNjg2NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJuYXFsdWEiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTgyNTU0MWMyMjUxZmVkOWQxZTRhYzUxOWQwYTI2NmRhMjQ1OWQ3MTdhMjhmY2NjYjUyNGUxYTgxYmVhOGJiNSIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9
+      spawned: true
+    traitnames: owner,scoreboardtrait,skintrait,spawned,inventory,type,targetable,location
+    navigator:
+      speedmodifier: 4.0
+      avoidwater: false
+      usedefaultstuckaction: false
+  '9':
+    metadata:
+      cached-skin-uuid-name: 882c2996-0a35-473d-8601-6449901d84e0
+    name: 결혼권상점
+    uuid: 10d1110a-eddc-4239-acb0-ae8def5feed0
+    traits:
+      type: PLAYER
+      location:
+        bodyYaw: 89.97493
+        world: world
+        x: 2894.546
+        y: 78.0
+        z: 320.5001
+        yaw: 89.9749
+        pitch: 0.0
+      owner:
+        uuid: 76cdc947-3598-4f9c-9b9c-c44f7dfd05b5
+      skintrait:
+        signature: Ci4+A3SOA3AWSdV0z5zEUWZx+ccLf9fDi3KADOe/2/gM9t83PlTQnE/r5UcH9+I9dEsJCNc+/cf4WLjMzxX/60+IL8o9hBU6ImO8aQFGlvT+Jupy5aYYRMprney5g+76iFokMS43IH245irwlHWHlOAS8s9x1RQ5ijjAUaE2C5Xw5tMZKnPpmiL1lCPTcIUdh+eJAywIlgrtfgsLGRJ9xF3ElPQIAycGXbmCuS8ufdJ/uHco7VuajAZu9ULQNm5aJWcd7OClm0nBS+EHdLHpbo1B22KfbCl/C1uMRiDSoD6JSRrw+OcvZ4gU7stg7HL18YOYjsXl0SC+uMdcO6wggKRa+E7MZoZeG2WSOpiRkxt9mtvSszNWOOS5UaEtz4CigaBOCIlJynBqI9wzlzfiGog5VI3KXsgXs6K82UfENX4wV74WNFj3X9N8glDJSowXWb1A5FDEOeGxXqtAeJ+xsGtS7W9BDnNe9Io7tZParohPv12YTQ6cMjXi3nh9wLJuP7/eJQvAYPlpYku9Au+k67IX+foVk/6bBJFxiVS7RHkvPNh3H4MX+jWTOYbvqmYtmNxfzMqpM7iqa3Fn54bx8PpW3ch9aau9tTNBT3lplJFp55d6moeVSz+vohQO9OY8uKkJLz68Gvd/90YGpngkZNssDGbVCuq+lCLhX/an9dY=
+        skinName: 882c2996-0a35-473d-8601-6449901d84e0
+        textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTYxNTYyNTgxMTQ1NSwKICAicHJvZmlsZUlkIiA6ICI5ZDQyNWFiOGFmZjg0MGU1OWM3NzUzZjc5Mjg5YjMyZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb21wa2luNDIiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNThkZGE5M2NkNzVkNGNlODA4M2NjNWJmMjY2ZGNkNWE0ZDBjNTJhMTE3NGJlODQzZjExMzY1NDFlMzhlYmIiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==
+      spawned: true
+    traitnames: owner,scoreboardtrait,skintrait,spawned,inventory,type,location
+    navigator:
+      speedmodifier: 4.0
+      avoidwater: false
+      usedefaultstuckaction: false

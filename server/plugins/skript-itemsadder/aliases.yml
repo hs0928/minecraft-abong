@@ -1,0 +1,46 @@
+items:
+  icon cancel: _iainternal:icon_cancel
+  icon back orange: _iainternal:icon_back_orange
+  icon arrow chest: _iainternal:icon_arrow_chest
+  icon right blue: _iainternal:icon_right_blue
+  icon search: _iainternal:icon_search
+  icon left blue: _iainternal:icon_left_blue
+  icon next orange: _iainternal:icon_next_orange
+  invite: ab:invite
+  moneybag3: ab:moneybag3
+  moneybag2: ab:moneybag2
+  moneybag1: ab:moneybag1
+  moneybag7: ab:moneybag7
+  moneybag6: ab:moneybag6
+  moneybag5: ab:moneybag5
+  moneybag4: ab:moneybag4
+  postbox: ab:postbox
+  bag: ab:bag
+  redbag: ab:redbag
+  greenbag: ab:greenbag
+  bagblue: ab:bagblue
+  orangebag: ab:orangebag
+  purplebag: ab:purplebag
+  skybluebag: ab:skybluebag
+  yellowbag: ab:yellowbag
+  ringyellow: ab:ringyellow
+  ringlime: ab:ringlime
+  ringpurple: ab:ringpurple
+  ringblue: ab:ringblue
+  ringred: ab:ringred
+  ringblack: ab:ringblack
+  ringorange: ab:ringorange
+  ringlightblue: ab:ringlightblue
+  ringpink: ab:ringpink
+  ringwhite: ab:ringwhite
+  greennote: ab:greennote
+  pinknote: ab:pinknote
+  rednote: ab:rednote
+  purplenote: ab:purplenote
+  yellownote: ab:yellownote
+  bluenote: ab:bluenote
+  orangenote: ab:orangenote
+  hogam: ab:hogam
+  down: ab:down
+  up: ab:up
+  gangjae: ab:gangjae

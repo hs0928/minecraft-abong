@@ -1,0 +1,14 @@
+chest:
+  Type: ARMOR_STAND
+  Display: '&fasdf1234567'
+  Pose:
+    Head: 0,0,0
+  Options:
+    HasArms: true
+    Small: true
+    Invisible: true
+    Invincible: true
+    NoGravity: true
+  Skills:
+  - model{mid=treasurechest;n=true} @self ~onSpawn
+  - state{mid=treasurechest;s=close;cooldown=10} @self ~onInteract

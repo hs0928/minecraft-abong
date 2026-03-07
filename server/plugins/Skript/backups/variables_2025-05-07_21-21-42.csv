@@ -1,0 +1,10 @@
+# === Skript's variable storage ===
+# Please do not modify this file manually!
+#
+# version: 2.9.5
+
+c.e::76cdc947-3598-4f9c-9b9c-c44f7dfd05b5, long, 0000000000000000
+s.l::76cdc947-3598-4f9c-9b9c-c44f7dfd05b5, long, 0000000000000005
+이름카운트, long, 0000000000000001
+초대권구매비용::76cdc947-3598-4f9c-9b9c-c44f7dfd05b5, long, 000000000000000A
+
